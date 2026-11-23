@@ -1,0 +1,21 @@
+{
+  "name": "willian",
+  "version": "1.0.0",
+  "description": "WillIAn AI - Backend do chatbot multimodal",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js",
+    "update": "ncu -u"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.0",
+    "multer": "^2.5.0",
+    "openai": "^4.75.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.7",
+    "npm-check-updates": "^17.1.12"
+  }
+}
