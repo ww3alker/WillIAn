@@ -1,0 +1,1399 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" id="meta-theme-color" content="#07152e" />
+  <title>W3Labs WillIAn</title>
+  <link rel="icon" type="image/png" href="../ASSETS/WILLIAN.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/CSS/dashboard.css" />
+
+  <!-- Google Charts Loader (carregamento assíncrono não bloqueante) -->
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js" async></script>
+</head>
+<body class="welcome-mode" data-theme-color="azul">
+  <!-- Backdrop para fechar a Sidebar -->
+  <div class="sidebar-backdrop" id="sidebar-backdrop" hidden></div>
+
+  <div class="app-shell">
+    <!-- =====================================================
+         SIDEBAR ESQUERDA (MODERNA + TEMA DINÂMICO)
+         ===================================================== -->
+    <aside class="sidebar" id="sidebar" aria-label="Menu Lateral">
+      <div class="sidebar-top">
+        <div class="brand-row">
+          <button type="button" class="brand-title" id="btn-brand-home">
+            <img
+              src="../ASSETS/WILLIAN.png"
+              alt="Logo W3Labs WillIAn"
+              class="brand-logo"
+            />
+            <div class="brand-text-wrap">
+              <span id="brand-title-text">W3Labs WillIAn</span>
+              <small class="brand-sub">Workspace Dinâmico</small>
+            </div>
+          </button>
+
+          <div class="brand-actions">
+            <button type="button" class="icon-btn" id="btn-search-chats" title="Buscar conversas" aria-label="Buscar conversas">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+              </svg>
+            </button>
+            <button type="button" class="icon-btn" id="btn-collapse-sidebar" title="Fechar menu" aria-label="Fechar menu">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="3" width="18" height="18" rx="3"/><line x1="9" y1="3" x2="9" y2="21"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Campo de Busca Rápida -->
+        <div class="sidebar-search-box" id="sidebar-search-box" hidden>
+          <input
+            type="search"
+            id="sidebar-search-input"
+            placeholder="Filtrar conversas salvas..."
+            aria-label="Filtrar conversas salvas"
+          />
+        </div>
+
+        <!-- Navegação Principal -->
+        <nav class="primary-nav">
+          <button type="button" class="nav-item active" id="btn-new-chat" data-view-target="chat">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
+            </svg>
+            <span>Nova conversa</span>
+          </button>
+
+          <button type="button" class="nav-item" id="btn-nav-scheduled" data-view-target="scheduled">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+            </svg>
+            <span>Programado</span>
+            <span class="nav-count-badge" id="nav-badge-scheduled" hidden>0</span>
+          </button>
+
+          <button type="button" class="nav-item" id="btn-nav-studies" data-view-target="studies">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/>
+            </svg>
+            <span>Estudantes</span>
+            <span class="nav-count-badge" id="nav-badge-studies" hidden>0</span>
+          </button>
+
+          <button type="button" class="nav-item" id="btn-nav-sports" data-view-target="sports">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/>
+              <polygon points="12 7 16.5 10.2 14.8 15.5 9.2 15.5 7.5 10.2 12 7"/>
+              <line x1="12" y1="2" x2="12" y2="7"/>
+              <line x1="21.5" y1="9" x2="16.5" y2="10.2"/>
+              <line x1="18" y1="20" x2="14.8" y2="15.5"/>
+              <line x1="6" y1="20" x2="9.2" y2="15.5"/>
+              <line x1="2.5" y1="9" x2="7.5" y2="10.2"/>
+            </svg>
+            <span>Esportes • VarzIA</span>
+          </button>
+
+          <button type="button" class="nav-item" id="btn-nav-agro" data-view-target="agro">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/>
+              <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>
+            </svg>
+            <span>Agro</span>
+            <span class="nav-count-badge" id="nav-badge-agro" hidden>0</span>
+          </button>
+        </nav>
+      </div>
+
+      <!-- Histórico Real Carregado do Firestore -->
+      <div class="sidebar-scroll">
+        <div class="sidebar-section">
+          <button
+            type="button"
+            class="section-header-btn"
+            id="btn-toggle-history"
+            aria-expanded="true"
+            aria-controls="history-list"
+          >
+            <span class="section-label">Conversas salvas</span>
+            <div class="section-header-icons">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/>
+              </svg>
+              <svg class="chevron-icon rotated" id="history-chevron" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                <polyline points="6 9 12 15 18 9"/>
+              </svg>
+            </div>
+          </button>
+
+          <ul class="history-list" id="history-list" aria-live="polite"></ul>
+        </div>
+      </div>
+
+      <!-- Rodapé do Perfil Real Autenticado -->
+      <footer class="sidebar-footer">
+        <div class="user-profile-box">
+          <div class="user-avatar" id="user-avatar">--</div>
+          <div class="user-meta">
+            <strong id="user-display-name">Carregando...</strong>
+            <span class="plus-badge" id="user-status-badge">Conectado</span>
+          </div>
+        </div>
+
+        <div class="footer-actions">
+          <button
+            type="button"
+            class="icon-btn"
+            id="btn-nav-settings"
+            data-view-target="settings"
+            title="Configurações"
+            aria-label="Configurações"
+          >
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="3"/>
+              <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9c.26.604.852.997 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+            </svg>
+          </button>
+
+          <button type="button" class="icon-btn logout-btn" id="btn-logout" title="Sair da conta" aria-label="Sair da conta">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+              <polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/>
+            </svg>
+          </button>
+        </div>
+      </footer>
+    </aside>
+
+    <!-- =====================================================
+         ÁREA PRINCIPAL DE INTERAÇÃO
+         ===================================================== -->
+    <main class="main-stage">
+      <!-- Brilho Radial Atmosférico Dinâmico -->
+      <div class="ambient-glow" id="ambient-glow" aria-hidden="true"></div>
+      <div class="ambient-aurora" aria-hidden="true"></div>
+
+      <!-- Barra Superior Moderna com Menu + Status + Seletor de Cor de Fundo (Verde, Amarelo, Azul, Vermelho) -->
+      <header class="workspace-topbar" id="topbar">
+        <div class="topbar-left">
+          <button
+            type="button"
+            class="floating-menu-trigger"
+            id="btn-mobile-menu"
+            title="Abrir menu e conversas"
+            aria-label="Abrir menu e conversas"
+          >
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="3" y1="6" x2="21" y2="6"/>
+              <line x1="3" y1="12" x2="21" y2="12"/>
+              <line x1="3" y1="18" x2="21" y2="18"/>
+            </svg>
+          </button>
+
+          <div class="topbar-mode-pill" id="topbar-mode-pill">
+            <span class="mode-live-dot" aria-hidden="true"></span>
+            <span id="topbar-mode-label">Chat Principal</span>
+            <span class="topbar-divider">•</span>
+            <span id="topbar-active-model-badge">Carregando modelos...</span>
+          </div>
+        </div>
+
+        <div class="topbar-right">
+          <!-- Seletor Direto de Cor de Fundo (Verde, Amarelo, Azul, Vermelho) -->
+          <div class="theme-bg-switcher" id="topbar-theme-switcher" role="group" aria-label="Mudar cor de fundo">
+            <button type="button" class="theme-bg-btn" data-theme-bg="verde" title="Fundo Verde">
+              <span class="theme-dot theme-dot-verde" aria-hidden="true"></span>
+              <span class="theme-label">Verde</span>
+            </button>
+            <button type="button" class="theme-bg-btn" data-theme-bg="amarelo" title="Fundo Amarelo">
+              <span class="theme-dot theme-dot-amarelo" aria-hidden="true"></span>
+              <span class="theme-label">Amarelo</span>
+            </button>
+            <button type="button" class="theme-bg-btn active" data-theme-bg="azul" title="Fundo Azul">
+              <span class="theme-dot theme-dot-azul" aria-hidden="true"></span>
+              <span class="theme-label">Azul</span>
+            </button>
+            <button type="button" class="theme-bg-btn" data-theme-bg="vermelho" title="Fundo Vermelho">
+              <span class="theme-dot theme-dot-vermelho" aria-hidden="true"></span>
+              <span class="theme-label">Vermelho</span>
+            </button>
+          </div>
+
+          <button type="button" class="download-app-btn" id="btn-install-app" title="Instalar aplicativo">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+              <polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+            </svg>
+            <span class="download-btn-text">Instalar app</span>
+          </button>
+        </div>
+      </header>
+
+      <!-- =====================================================
+           TELA 1: CHAT PRINCIPAL (MODERNO + CARDS DINÂMICOS)
+           ===================================================== -->
+      <div class="stage-view active" id="view-chat">
+        <section class="hero-welcome" id="hero-welcome">
+          <div class="hero-status-pill" id="hero-status-pill">
+            <span class="status-pulse"></span>
+            <span id="hero-providers-summary">Sincronizando provedores de IA...</span>
+          </div>
+          <h1 id="hero-welcome-title">Por onde começamos?</h1>
+          <p class="hero-subtitle" id="hero-welcome-subtitle">
+            Respostas estruturadas em Markdown com gráficos interativos, VarzIA ao vivo, Agro conectado e modelos dinâmicos.
+          </p>
+
+          <div class="hero-quick-grid" id="hero-quick-grid">
+            <button type="button" class="hero-quick-card" data-quick-action="chat" data-quick-prompt="Explique uma arquitetura moderna de sistema com diagrama/tabela comparativa e exemplos de código em Markdown.">
+              <div class="hq-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>
+                </svg>
+              </div>
+              <div class="hq-text">
+                <strong>Código &amp; Arquitetura</strong>
+                <span>Explicações técnicas com blocos de código e tabelas Markdown.</span>
+              </div>
+            </button>
+
+            <button type="button" class="hero-quick-card" data-quick-action="sports">
+              <div class="hq-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10"/><polygon points="12 7 16.5 10.2 14.8 15.5 9.2 15.5 7.5 10.2 12 7"/>
+                </svg>
+              </div>
+              <div class="hq-text">
+                <strong>VarzIA • Esportes ao Vivo</strong>
+                <span>Placares, classificação e análises da ESPN Brasil em tempo real.</span>
+              </div>
+            </button>
+
+            <button type="button" class="hero-quick-card" data-quick-action="agro">
+              <div class="hq-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/>
+                  <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>
+                </svg>
+              </div>
+              <div class="hq-text">
+                <strong>Painel Agro Inteligente</strong>
+                <span>Pluviômetro Open-Meteo, diesel, safra e frota do Firestore.</span>
+              </div>
+            </button>
+
+            <button type="button" class="hero-quick-card" data-quick-action="scheduled">
+              <div class="hq-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+                </svg>
+              </div>
+              <div class="hq-text">
+                <strong>Rotinas Programadas</strong>
+                <span>Organize metas, horários e gere planos diários em Markdown.</span>
+              </div>
+            </button>
+          </div>
+        </section>
+
+        <section class="default-chart-wrapper" id="default-chart-wrapper" hidden>
+          <div class="ai-google-chart-card">
+            <div class="ai-chart-card-header">
+              <span>Google Charts • Visualização Interativa</span>
+              <button type="button" class="icon-btn" id="btn-close-default-chart" aria-label="Fechar gráfico">✕</button>
+            </div>
+            <div id="chart_div"></div>
+          </div>
+        </section>
+
+        <section class="chat-feed" id="chat-feed" hidden aria-live="polite"></section>
+      </div>
+
+      <!-- =====================================================
+           TELA 2: PROGRAMADO (ROTINAS E TAREFAS NO FIRESTORE)
+           ===================================================== -->
+      <section class="stage-view scheduled-view" id="view-scheduled" hidden aria-label="Rotinas Programadas">
+        <div class="module-shell">
+          <header class="module-hero-header">
+            <div>
+              <span class="module-kicker">Agenda Dinâmica • Firestore</span>
+              <h2>Rotinas &amp; Tarefas Programadas</h2>
+              <p>Gerencie compromissos de trabalho, Agro, estudos e esportes e peça um plano estratégico em Markdown.</p>
+            </div>
+            <div class="module-header-actions">
+              <button type="button" class="btn-primary-notebook" id="btn-scheduled-ai-plan">
+                Gerar Plano do Dia em Markdown
+              </button>
+            </div>
+          </header>
+
+          <div class="kpi-ribbon" id="scheduled-kpi-ribbon">
+            <div class="kpi-card">
+              <span>Total de Rotinas</span>
+              <strong id="sched-kpi-total">0</strong>
+            </div>
+            <div class="kpi-card">
+              <span>Pendentes Hoje</span>
+              <strong id="sched-kpi-pending">0</strong>
+            </div>
+            <div class="kpi-card">
+              <span>Concluídas</span>
+              <strong id="sched-kpi-done">0</strong>
+            </div>
+          </div>
+
+          <form class="scheduled-create-card" id="scheduled-form">
+            <input
+              type="text"
+              id="scheduled-input-title"
+              placeholder="Nova rotina ou tarefa (ex: Calibrar plantadeira do Talhão 02)"
+              required
+            />
+            <input
+              type="text"
+              id="scheduled-input-time"
+              placeholder="Horário / Frequência (ex: 07:30 • Diária)"
+            />
+            <select id="scheduled-input-category" aria-label="Categoria da rotina">
+              <option value="Geral">Geral</option>
+              <option value="Agro">Agro</option>
+              <option value="Estudantes">Estudantes</option>
+              <option value="Esportes">Esportes</option>
+            </select>
+            <select id="scheduled-input-priority" aria-label="Prioridade">
+              <option value="Alta">Prioridade Alta</option>
+              <option value="Média" selected>Prioridade Média</option>
+              <option value="Baixa">Prioridade Baixa</option>
+            </select>
+            <button type="submit" class="btn-primary-notebook">Adicionar</button>
+          </form>
+
+          <div class="filter-pills-row" id="scheduled-filters">
+            <button type="button" class="filter-pill active" data-sched-filter="all">Todas</button>
+            <button type="button" class="filter-pill" data-sched-filter="pending">Pendentes</button>
+            <button type="button" class="filter-pill" data-sched-filter="done">Concluídas</button>
+            <button type="button" class="filter-pill" data-sched-filter="Agro">Agro</button>
+            <button type="button" class="filter-pill" data-sched-filter="Estudantes">Estudantes</button>
+            <button type="button" class="filter-pill" data-sched-filter="Esportes">Esportes</button>
+          </div>
+
+          <div class="scheduled-list" id="scheduled-list" aria-live="polite"></div>
+        </div>
+      </section>
+
+      <!-- =====================================================
+           TELA 3: TURBINE SEUS ESTUDOS & NOTEBOOKS
+           ===================================================== -->
+      <section class="stage-view studies-view" id="view-studies" hidden aria-label="Turbine seus estudos">
+        <div class="studies-container">
+          <div class="studies-header">
+            <div class="studies-cap-icon" aria-hidden="true">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+                <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+              </svg>
+            </div>
+            <h2>Turbine seus estudos</h2>
+            <p class="studies-subtitle">Crie notebooks inteligentes no Firestore e estude com resumos em Markdown, tabelas e simulados.</p>
+          </div>
+
+          <div class="study-cards-row">
+            <button
+              type="button"
+              class="study-card study-card-wide"
+              data-study-mode="ementa"
+              data-study-prompt="Transforme minha ementa ou conteúdo programático em um notebook de estudos estruturado em Markdown por módulos, tabela de revisão e cronograma:"
+            >
+              <div class="study-thumb thumb-syllabus" aria-hidden="true">
+                <div class="syllabus-vortex">
+                  <span class="sv-page p1"></span>
+                  <span class="sv-page p2"></span>
+                  <span class="sv-page p3"></span>
+                  <span class="sv-page p4"></span>
+                  <span class="sv-page p5"></span>
+                  <span class="sv-page p6"></span>
+                  <span class="sv-page p7"></span>
+                  <span class="sv-page p8"></span>
+                  <div class="sv-core"></div>
+                </div>
+              </div>
+              <span class="study-card-label">Transformar sua ementa em um notebook de estudos</span>
+            </button>
+
+            <button
+              type="button"
+              class="study-card"
+              data-study-mode="imersivo"
+              data-study-prompt="Quero explorar descobertas imersivas em Markdown com explicações estruturadas, analogias profundas e perguntas guiadas sobre:"
+            >
+              <div class="study-thumb thumb-immersive" aria-hidden="true">
+                <svg class="galaxy-svg" viewBox="0 0 140 140" fill="none">
+                  <defs>
+                    <radialGradient id="galaxyCore" cx="50%" cy="50%" r="50%">
+                      <stop offset="0%" stop-color="#fff7ed" stop-opacity="0.95"/>
+                      <stop offset="30%" stop-color="#fde68a" stop-opacity="0.65"/>
+                      <stop offset="65%" stop-color="#60a5fa" stop-opacity="0.28"/>
+                      <stop offset="100%" stop-color="#090d16" stop-opacity="0"/>
+                    </radialGradient>
+                  </defs>
+                  <circle cx="24" cy="28" r="1" fill="#ffffff" opacity="0.7"/>
+                  <circle cx="114" cy="24" r="1.2" fill="#93c5fd" opacity="0.8"/>
+                  <circle cx="118" cy="108" r="1" fill="#ffffff" opacity="0.6"/>
+                  <circle cx="28" cy="112" r="1.1" fill="#fde68a" opacity="0.7"/>
+                  <g transform="rotate(-28 70 70)">
+                    <ellipse cx="70" cy="70" rx="54" ry="22" stroke="rgba(147, 197, 253, 0.35)" stroke-width="5" stroke-dasharray="18 8"/>
+                    <ellipse cx="70" cy="70" rx="40" ry="15" stroke="rgba(253, 230, 138, 0.45)" stroke-width="4" stroke-dasharray="14 6"/>
+                    <ellipse cx="70" cy="70" rx="25" ry="9" stroke="rgba(255, 255, 255, 0.6)" stroke-width="3"/>
+                    <ellipse cx="70" cy="70" rx="34" ry="14" fill="url(#galaxyCore)"/>
+                  </g>
+                </svg>
+              </div>
+              <span class="study-card-label">Teste as descobertas imersivas</span>
+            </button>
+
+            <button
+              type="button"
+              class="study-card"
+              data-study-mode="teste"
+              data-study-prompt="Crie um simulado interativo em Markdown com questões de múltipla escolha, uma por vez, aguardando minha resposta antes de corrigir, sobre:"
+            >
+              <div class="study-thumb thumb-quiz" aria-hidden="true">
+                <div class="quiz-matrix">
+                  <span class="qm-cell empty"></span>
+                  <span class="qm-cell checked">✓</span>
+                  <span class="qm-cell empty"></span>
+                  <span class="qm-cell empty"></span>
+                  <span class="qm-cell checked">✓</span>
+                  <span class="qm-cell muted"></span>
+                  <span class="qm-cell muted"></span>
+                  <span class="qm-cell checked">✓</span>
+                  <span class="qm-cell checked">✓</span>
+                </div>
+              </div>
+              <span class="study-card-label">Hora do teste</span>
+            </button>
+
+            <button
+              type="button"
+              class="study-card study-card-fade-edge"
+              data-study-mode="flashcards"
+              data-study-prompt="Crie 10 cartões de estudo (flashcards) em tabela Markdown (Frente | Verso | Dica) para memorização ativa sobre:"
+            >
+              <div class="study-thumb thumb-flashcards" aria-hidden="true">
+                <svg class="flashcards-collage-svg" viewBox="0 0 140 140" fill="none">
+                  <defs>
+                    <linearGradient id="eiffelGold" x1="0" y1="0" x2="1" y2="1">
+                      <stop offset="0%" stop-color="#f59e0b"/>
+                      <stop offset="100%" stop-color="#b45309"/>
+                    </linearGradient>
+                    <linearGradient id="bustMarble" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stop-color="#cbd5e1"/>
+                      <stop offset="100%" stop-color="#475569"/>
+                    </linearGradient>
+                  </defs>
+                  <rect x="66" y="8" width="54" height="58" rx="8" fill="#1e2229" stroke="rgba(255,255,255,0.08)"/>
+                  <circle cx="93" cy="27" r="11" fill="url(#bustMarble)" opacity="0.85"/>
+                  <path d="M77 58c2-11 8-15 16-15s14 4 16 15" fill="url(#bustMarble)" opacity="0.75"/>
+                  <rect x="10" y="34" width="52" height="74" rx="8" fill="#231c18" stroke="rgba(245,158,11,0.25)"/>
+                  <path d="M36 44L22 98h7l4-16h6l4 16h7L36 44zm-2 29l2-11 2 11h-4z" fill="url(#eiffelGold)"/>
+                  <rect x="70" y="72" width="56" height="54" rx="8" fill="#17191e" stroke="rgba(255,255,255,0.06)"/>
+                  <polygon points="98,82 116,114 80,114" fill="#2d333f" opacity="0.8"/>
+                </svg>
+              </div>
+              <span class="study-card-label">Criar cartões de estudo</span>
+            </button>
+          </div>
+
+          <div class="notebooks-section">
+            <div class="notebooks-section-header">
+              <span class="notebooks-section-title">Seus notebooks de estudo</span>
+              <button type="button" class="btn-new-notebook" id="btn-open-new-notebook">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3">
+                  <line x1="12" y1="5" x2="12" y2="19"/>
+                  <line x1="5" y1="12" x2="19" y2="12"/>
+                </svg>
+                <span>Novo notebook</span>
+              </button>
+            </div>
+
+            <form class="new-notebook-panel" id="new-notebook-panel" hidden>
+              <div class="new-notebook-fields">
+                <input
+                  type="text"
+                  id="input-notebook-title"
+                  placeholder="Título do notebook (ex: Simulados de Concurso Público...)"
+                  required
+                />
+                <input
+                  type="text"
+                  id="input-notebook-topic"
+                  placeholder="Tópico atual para continuar aprendendo (ex: Eletromagnetismo)"
+                  required
+                />
+              </div>
+              <div class="new-notebook-actions">
+                <button type="button" class="btn-secondary-pill" id="btn-cancel-new-notebook">Cancelar</button>
+                <button type="submit" class="btn-primary-notebook">Criar e estudar</button>
+              </div>
+            </form>
+
+            <div class="notebooks-list" id="notebooks-list" aria-live="polite"></div>
+          </div>
+
+          <div class="study-quick-chips" id="study-quick-chips" hidden></div>
+        </div>
+      </section>
+
+      <!-- =====================================================
+           TELA 4: VARZIA — HUB ESPORTIVO AO VIVO (ESPN BRASIL)
+           ===================================================== -->
+      <section class="stage-view sports-view" id="view-sports" hidden aria-label="VarzIA Esportes">
+        <div class="module-shell varzia-hub-container" id="varzia-welcome-box">
+          <header class="module-hero-header">
+            <div>
+              <span class="module-kicker">ESPN Brasil em Tempo Real • Markdown &amp; Gráficos</span>
+              <h1 id="varzia-welcome-title">VarzIA Esportes</h1>
+              <p class="module-subtitle" id="varzia-last-sync">Conectando ao feed esportivo ao vivo...</p>
+            </div>
+            <div class="module-header-actions">
+              <button type="button" class="btn-secondary-pill" id="btn-varzia-refresh">
+                Atualizar ao vivo
+              </button>
+              <button type="button" class="btn-primary-notebook" id="btn-varzia-ai-round">
+                Resumir Rodada em Markdown
+              </button>
+            </div>
+          </header>
+
+          <!-- Seletor Dinâmico de Ligas (populado via LIGAS_POPULARES_ESPN) -->
+          <div class="varzia-leagues-bar" id="varzia-leagues-bar" role="tablist" aria-label="Ligas esportivas"></div>
+
+          <!-- KPIs Dinâmicos da Liga Selecionada -->
+          <div class="kpi-ribbon">
+            <div class="kpi-card">
+              <span>Liga Ativa</span>
+              <strong id="varzia-kpi-league">Brasileirão Série A</strong>
+            </div>
+            <div class="kpi-card">
+              <span>Jogos na Rodada</span>
+              <strong id="varzia-kpi-matches">--</strong>
+            </div>
+            <div class="kpi-card">
+              <span>Ao Vivo Agora</span>
+              <strong id="varzia-kpi-live">--</strong>
+            </div>
+            <div class="kpi-card">
+              <span>Líder / Destaque</span>
+              <strong id="varzia-kpi-leader">--</strong>
+            </div>
+          </div>
+
+          <!-- Abas do Painel VarzIA -->
+          <div class="varzia-hub-tabs" role="tablist">
+            <button type="button" class="filter-pill active" data-varzia-tab="games">Jogos &amp; Placares</button>
+            <button type="button" class="filter-pill" data-varzia-tab="standings">Classificação</button>
+            <button type="button" class="filter-pill" data-varzia-tab="news">Notícias ESPN</button>
+          </div>
+
+          <div class="varzia-panel" id="varzia-panel-games">
+            <div class="varzia-games-grid" id="varzia-games-grid"></div>
+          </div>
+
+          <div class="varzia-panel" id="varzia-panel-standings" hidden>
+            <div class="varzia-standings-toolbar">
+              <span id="varzia-standings-title">Tabela Atualizada</span>
+              <button type="button" class="btn-secondary-pill" id="btn-varzia-chart-standings">
+                Gerar Gráfico da Tabela
+              </button>
+            </div>
+            <div class="varzia-standings-wrap" id="varzia-standings-wrap"></div>
+          </div>
+
+          <div class="varzia-panel" id="varzia-panel-news" hidden>
+            <div class="varzia-news-grid" id="varzia-news-grid"></div>
+          </div>
+        </div>
+
+        <div class="module-chat-toolbar" id="varzia-chat-toolbar" hidden>
+          <button type="button" class="btn-secondary-pill" id="btn-varzia-show-hub">
+            Painel VarzIA (Ao Vivo)
+          </button>
+          <span class="toolbar-status-chip" id="varzia-toolbar-league">ESPN Brasil • Conectado</span>
+        </div>
+
+        <section class="chat-feed" id="varzia-chat-feed" hidden aria-live="polite"></section>
+      </section>
+
+      <!-- =====================================================
+           TELA 5: AGRO — CENTRAL DINÂMICA (FIRESTORE + OPEN-METEO + CHARTS)
+           ===================================================== -->
+      <section class="stage-view agro-view" id="view-agro" hidden aria-label="Agro">
+        <section class="module-shell agro-welcome-container" id="agro-welcome-box">
+          <header class="module-hero-header">
+            <div>
+              <span class="module-kicker">Firestore Interligado + Open-Meteo API</span>
+              <h1 id="agro-welcome-title">Agro Inteligente</h1>
+              <p class="agro-subtitle" id="agro-sync-summary">
+                Sincronizando dados da propriedade, pluviômetro (mm) e operação rural...
+              </p>
+            </div>
+            <div class="agro-weather-search">
+              <input
+                type="text"
+                id="agro-city-input"
+                placeholder="Cidade/UF clima (ex: Cascavel, PR)"
+                aria-label="Cidade para previsão Open-Meteo"
+              />
+              <button type="button" class="btn-secondary-pill" id="btn-agro-update-weather">
+                Atualizar Clima
+              </button>
+              <button type="button" class="btn-primary-notebook" id="btn-agro-full-report">
+                Relatório Fazenda (MD)
+              </button>
+            </div>
+          </header>
+
+          <!-- KPIs Dinâmicos do Agro -->
+          <div class="kpi-ribbon">
+            <div class="kpi-card">
+              <span>Área Total</span>
+              <strong id="agro-kpi-area">0 ha</strong>
+            </div>
+            <div class="kpi-card">
+              <span>Chuva Hoje / 7d</span>
+              <strong id="agro-kpi-rain">-- mm</strong>
+            </div>
+            <div class="kpi-card">
+              <span>Saldo Diesel</span>
+              <strong id="agro-kpi-diesel">0 L</strong>
+            </div>
+            <div class="kpi-card">
+              <span>Colheita Safra</span>
+              <strong id="agro-kpi-harvest">0 sc</strong>
+            </div>
+            <div class="kpi-card">
+              <span>Revisões Pendentes</span>
+              <strong id="agro-kpi-revisions">0</strong>
+            </div>
+          </div>
+
+          <!-- Painel Climático Dinâmico + Gráfico Google Charts -->
+          <div class="agro-climate-grid">
+            <div class="agro-climate-card">
+              <div class="agro-climate-header">
+                <strong id="agro-climate-location">Pluviometria &amp; Janela Agrícola</strong>
+                <span class="settings-badge" id="agro-climate-soil">Solo: --</span>
+              </div>
+              <div class="agro-forecast-strip" id="agro-forecast-strip"></div>
+            </div>
+
+            <div class="agro-climate-card agro-chart-card">
+              <div class="agro-climate-header">
+                <strong>Gráfico Dinâmico de Chuvas (mm)</strong>
+                <button type="button" class="btn-secondary-pill btn-xs" id="btn-agro-ask-weather">
+                  Avaliar Janela IA
+                </button>
+              </div>
+              <div id="agro-mini-chart" class="agro-mini-chart"></div>
+            </div>
+          </div>
+
+          <!-- Grid Bento Completo com Todos os 10 Módulos Agro -->
+          <div class="agro-squares-grid" id="agro-squares-grid" aria-label="Módulos Agro Firestore">
+            <button type="button" class="agro-square-card" data-agro-category="propriedade">
+              <div class="agro-sq-top-text">
+                <strong>Propriedade</strong>
+                <span id="agro-stat-propriedade">Cadastrar fazenda &amp; GPS no Firestore</span>
+              </div>
+              <div class="agro-sq-bottom-icon">
+                <span class="agro-sq-badge" id="agro-badge-propriedade">0</span>
+                <span class="agro-sq-icon-circle" aria-hidden="true">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                    <polyline points="9 22 9 12 15 12 15 22"/>
+                  </svg>
+                </span>
+              </div>
+            </button>
+
+            <button type="button" class="agro-square-card" data-agro-category="unidade">
+              <div class="agro-sq-top-text">
+                <strong>Unidade</strong>
+                <span id="agro-stat-unidade">Talhões, silos &amp; áreas vinculadas</span>
+              </div>
+              <div class="agro-sq-bottom-icon">
+                <span class="agro-sq-badge" id="agro-badge-unidade">0</span>
+                <span class="agro-sq-icon-circle" aria-hidden="true">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/>
+                    <rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>
+                  </svg>
+                </span>
+              </div>
+            </button>
+
+            <button type="button" class="agro-square-card" data-agro-category="plantio">
+              <div class="agro-sq-top-text">
+                <strong>Plantio</strong>
+                <span id="agro-stat-plantio">Safra, cultivar &amp; insumos do inventário</span>
+              </div>
+              <div class="agro-sq-bottom-icon">
+                <span class="agro-sq-badge" id="agro-badge-plantio">0</span>
+                <span class="agro-sq-icon-circle" aria-hidden="true">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M7 20h10"/><path d="M10 20c5.5-2.5.8-6.4 3-10"/>
+                    <path d="M9.5 9.4c1.1.8 1.8 2.2 2.3 3.7-2 .4-3.5.4-4.8-.3-1.2-.6-2.3-1.9-3-4.2 2.8-.5 4.4 0 5.5.8z"/>
+                    <path d="M14.1 6a7 7 0 0 0-1.1 4c1.9-.1 3.3-.6 4.3-1.4 1-1 1.6-2.3 1.7-4.6-2.7.1-4 1-4.9 2z"/>
+                  </svg>
+                </span>
+              </div>
+            </button>
+
+            <button type="button" class="agro-square-card" data-agro-category="colheita">
+              <div class="agro-sq-top-text">
+                <strong>Colheita</strong>
+                <span id="agro-stat-colheita">Sacas, umidade &amp; cálculo de comissão</span>
+              </div>
+              <div class="agro-sq-bottom-icon">
+                <span class="agro-sq-badge" id="agro-badge-colheita">0</span>
+                <span class="agro-sq-icon-circle" aria-hidden="true">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M2 22L16 8"/><path d="M3.47 12.53 5 11l1.53 1.53a3.5 3.5 0 0 1 0 4.94L5 19l-1.53-1.53a3.5 3.5 0 0 1 0-4.94Z"/>
+                    <path d="M7.47 8.53 9 7l1.53 1.53a3.5 3.5 0 0 1 0 4.94L9 15l-1.53-1.53a3.5 3.5 0 0 1 0-4.94Z"/>
+                    <path d="M11.47 4.53 13 3l1.53 1.53a3.5 3.5 0 0 1 0 4.94L13 11l-1.53-1.53a3.5 3.5 0 0 1 0-4.94Z"/>
+                  </svg>
+                </span>
+              </div>
+            </button>
+
+            <button type="button" class="agro-square-card" data-agro-category="pluviometro">
+              <div class="agro-sq-top-text">
+                <strong>Pluviômetro</strong>
+                <span id="agro-stat-pluviometro">Chuva em mm via API Open-Meteo</span>
+              </div>
+              <div class="agro-sq-bottom-icon">
+                <span class="agro-sq-badge" id="agro-badge-pluviometro">0</span>
+                <span class="agro-sq-icon-circle" aria-hidden="true">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/>
+                  </svg>
+                </span>
+              </div>
+            </button>
+
+            <button type="button" class="agro-square-card" data-agro-category="diesel">
+              <div class="agro-sq-top-text">
+                <strong>Estoque de Diesel</strong>
+                <span id="agro-stat-diesel">Saldo do tanque, entradas &amp; consumo</span>
+              </div>
+              <div class="agro-sq-bottom-icon">
+                <span class="agro-sq-badge" id="agro-badge-diesel">0</span>
+                <span class="agro-sq-icon-circle" aria-hidden="true">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="3" y1="22" x2="15" y2="22"/><line x1="4" y1="9" x2="14" y2="9"/>
+                    <path d="M14 22V4a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v18"/>
+                    <path d="M14 13h2a2 2 0 0 1 2 2v2a2 2 0 0 0 2 2h0a2 2 0 0 0 2-2V9.83a2 2 0 0 0-.59-1.42L18 5"/>
+                  </svg>
+                </span>
+              </div>
+            </button>
+
+            <button type="button" class="agro-square-card" data-agro-category="inventario">
+              <div class="agro-sq-top-text">
+                <strong>Inventário</strong>
+                <span id="agro-stat-inventario">Máquinas, sementes &amp; insumos</span>
+              </div>
+              <div class="agro-sq-bottom-icon">
+                <span class="agro-sq-badge" id="agro-badge-inventario">0</span>
+                <span class="agro-sq-icon-circle" aria-hidden="true">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+                    <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+                    <line x1="12" y1="22.08" x2="12" y2="12"/>
+                  </svg>
+                </span>
+              </div>
+            </button>
+
+            <button type="button" class="agro-square-card" data-agro-category="revisoes">
+              <div class="agro-sq-top-text">
+                <strong>Revisões</strong>
+                <span id="agro-stat-revisoes">Horímetro, óleo &amp; preventiva da frota</span>
+              </div>
+              <div class="agro-sq-bottom-icon">
+                <span class="agro-sq-badge" id="agro-badge-revisoes">0</span>
+                <span class="agro-sq-icon-circle" aria-hidden="true">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+                  </svg>
+                </span>
+              </div>
+            </button>
+
+            <button type="button" class="agro-square-card" data-agro-category="salario">
+              <div class="agro-sq-top-text">
+                <strong>Porcentagem de Salário</strong>
+                <span id="agro-stat-salario">Comissão sobre safra &amp; equipe</span>
+              </div>
+              <div class="agro-sq-bottom-icon">
+                <span class="agro-sq-badge" id="agro-badge-salario">0</span>
+                <span class="agro-sq-icon-circle" aria-hidden="true">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="19" y1="5" x2="5" y2="19"/>
+                    <circle cx="6.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/>
+                  </svg>
+                </span>
+              </div>
+            </button>
+
+            <button type="button" class="agro-square-card" data-agro-category="manuais">
+              <div class="agro-sq-top-text">
+                <strong>Manuais</strong>
+                <span id="agro-stat-manuais">Calibração, guias &amp; protocolos</span>
+              </div>
+              <div class="agro-sq-bottom-icon">
+                <span class="agro-sq-badge" id="agro-badge-manuais">0</span>
+                <span class="agro-sq-icon-circle" aria-hidden="true">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+                    <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+                  </svg>
+                </span>
+              </div>
+            </button>
+          </div>
+        </section>
+
+        <div class="module-chat-toolbar" id="agro-chat-toolbar" hidden>
+          <button type="button" class="btn-secondary-pill" id="btn-agro-show-cards">
+            Painel Agro Completo
+          </button>
+          <span class="toolbar-status-chip" id="agro-toolbar-rain">Pluviômetro: -- mm</span>
+        </div>
+
+        <section class="chat-feed" id="agro-chat-feed" hidden aria-live="polite"></section>
+      </section>
+
+      <!-- =====================================================
+           TELA 6: CONFIGURAÇÕES REDESENHADA (TEMA DE 4 CORES + DIAGNÓSTICO)
+           ===================================================== -->
+      <section class="stage-view settings-view" id="view-settings" hidden aria-label="Configurações">
+        <div class="settings-shell">
+          <header class="settings-top-header">
+            <div class="settings-title-block">
+              <span class="settings-kicker">Preferências do Workspace</span>
+              <h2>Configurações</h2>
+              <p>Personalize o tema de fundo, o seletor dinâmico de modelos de IA, voz e segurança.</p>
+            </div>
+            <button type="button" class="btn-secondary-pill settings-back-btn" id="btn-close-settings">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/>
+              </svg>
+              <span>Voltar ao Chat</span>
+            </button>
+          </header>
+
+          <div class="settings-tabs-bar" role="tablist" aria-label="Categorias de configurações">
+            <button type="button" class="settings-tab-pill active" data-settings-filter="all" role="tab" aria-selected="true">
+              Geral
+            </button>
+            <button type="button" class="settings-tab-pill" data-settings-filter="appearance" role="tab" aria-selected="false">
+              Aparência &amp; Fundo
+            </button>
+            <button type="button" class="settings-tab-pill" data-settings-filter="ai" role="tab" aria-selected="false">
+              Modelos &amp; IA
+            </button>
+            <button type="button" class="settings-tab-pill" data-settings-filter="voice" role="tab" aria-selected="false">
+              Voz
+            </button>
+            <button type="button" class="settings-tab-pill" data-settings-filter="account" role="tab" aria-selected="false">
+              Conta &amp; Segurança
+            </button>
+          </div>
+
+          <div class="settings-grid">
+            <!-- Cartão 1: Tema de Fundo (Verde, Amarelo, Azul, Vermelho) -->
+            <article class="settings-card" data-settings-section="appearance">
+              <div class="settings-card-header">
+                <div class="settings-card-title-wrap">
+                  <span class="settings-card-icon" aria-hidden="true">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <circle cx="13.5" cy="6.5" r=".5"/><circle cx="17.5" cy="10.5" r=".5"/>
+                      <circle cx="8.5" cy="7.5" r=".5"/><circle cx="6.5" cy="12.5" r=".5"/>
+                      <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/>
+                    </svg>
+                  </span>
+                  <h3>Cor de Fundo da Dashboard</h3>
+                </div>
+                <span class="settings-badge" id="settings-active-color-label">Azul</span>
+              </div>
+
+              <div class="theme-cards-grid" id="settings-theme-cards">
+                <button type="button" class="theme-preview-card" data-theme-bg="verde">
+                  <span class="theme-preview-swatch swatch-verde"></span>
+                  <div>
+                    <strong>Verde</strong>
+                    <span>Esmeralda Agro</span>
+                  </div>
+                </button>
+                <button type="button" class="theme-preview-card" data-theme-bg="amarelo">
+                  <span class="theme-preview-swatch swatch-amarelo"></span>
+                  <div>
+                    <strong>Amarelo</strong>
+                    <span>Ouro Solar</span>
+                  </div>
+                </button>
+                <button type="button" class="theme-preview-card active" data-theme-bg="azul">
+                  <span class="theme-preview-swatch swatch-azul"></span>
+                  <div>
+                    <strong>Azul</strong>
+                    <span>Safira Profundo</span>
+                  </div>
+                </button>
+                <button type="button" class="theme-preview-card" data-theme-bg="vermelho">
+                  <span class="theme-preview-swatch swatch-vermelho"></span>
+                  <div>
+                    <strong>Vermelho</strong>
+                    <span>Rubi Intenso</span>
+                  </div>
+                </button>
+              </div>
+
+              <div class="setting-row">
+                <div class="setting-info">
+                  <strong>Ajuste fino da cor de destaque</strong>
+                  <span>Personalize detalhes de botões e links mantendo o fundo ativo.</span>
+                </div>
+                <div class="color-swatches" id="color-swatches">
+                  <button type="button" class="swatch-btn" data-color="#4ea8ff" style="--swatch:#4ea8ff" title="Azul"></button>
+                  <button type="button" class="swatch-btn" data-color="#22c55e" style="--swatch:#22c55e" title="Verde"></button>
+                  <button type="button" class="swatch-btn" data-color="#fbbf24" style="--swatch:#fbbf24" title="Amarelo"></button>
+                  <button type="button" class="swatch-btn" data-color="#fb7185" style="--swatch:#fb7185" title="Vermelho"></button>
+                  <label class="custom-color-picker" title="Escolher cor personalizada">
+                    <input type="color" id="settings-accent-color" value="#4ea8ff" aria-label="Seletor de cor personalizada" />
+                    <span class="custom-color-ring">+</span>
+                  </label>
+                </div>
+              </div>
+
+              <div class="setting-row">
+                <div class="setting-info">
+                  <strong>Brilho radial ambiente</strong>
+                  <span>Exibe o halo luminoso colorido no centro da dashboard.</span>
+                </div>
+                <label class="switch">
+                  <input type="checkbox" id="settings-glow-toggle" checked />
+                  <span class="slider"></span>
+                </label>
+              </div>
+            </article>
+
+            <!-- Cartão 2: Modelos & Raciocínio -->
+            <article class="settings-card" data-settings-section="ai">
+              <div class="settings-card-header">
+                <div class="settings-card-title-wrap">
+                  <span class="settings-card-icon" aria-hidden="true">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                    </svg>
+                  </span>
+                  <h3>Modelos &amp; Raciocínio</h3>
+                </div>
+                <span class="settings-badge" id="settings-models-count-badge">Dinâmico</span>
+              </div>
+
+              <div class="setting-row">
+                <div class="setting-info">
+                  <strong>Modelo padrão ao iniciar</strong>
+                  <span>Sincronizado em tempo real com o seletor rápido da barra.</span>
+                </div>
+                <select id="settings-default-model" class="settings-select"></select>
+              </div>
+
+              <div class="setting-row">
+                <div class="setting-info">
+                  <strong>Nível de raciocínio padrão</strong>
+                  <span>Define o orçamento de pensamento e temperatura do modelo.</span>
+                </div>
+                <select id="settings-default-reasoning" class="settings-select">
+                  <option value="Auto">Auto</option>
+                  <option value="Baixo">Baixo (Rápido)</option>
+                  <option value="Médio">Médio (Equilibrado)</option>
+                  <option value="Alto" selected>Alto (Profundo)</option>
+                </select>
+              </div>
+
+              <div class="setting-row">
+                <div class="setting-info">
+                  <strong>Respostas em tempo real (Streaming)</strong>
+                  <span>Renderiza Markdown progressivamente token a token.</span>
+                </div>
+                <label class="switch">
+                  <input type="checkbox" id="settings-stream-toggle" checked />
+                  <span class="slider"></span>
+                </label>
+              </div>
+            </article>
+
+            <!-- Cartão 3: Entrada por Voz -->
+            <article class="settings-card" data-settings-section="voice">
+              <div class="settings-card-header">
+                <div class="settings-card-title-wrap">
+                  <span class="settings-card-icon" aria-hidden="true">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+                      <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+                      <line x1="12" y1="19" x2="12" y2="23"/>
+                    </svg>
+                  </span>
+                  <h3>Entrada por Voz</h3>
+                </div>
+                <span class="settings-badge">Microfone</span>
+              </div>
+
+              <div class="setting-row">
+                <div class="setting-info">
+                  <strong>Idioma de reconhecimento de voz</strong>
+                  <span>Idioma utilizado pelo ditado na barra de prompt.</span>
+                </div>
+                <select id="settings-voice-lang" class="settings-select">
+                  <option value="pt-BR" selected>Português (Brasil)</option>
+                  <option value="en-US">English (US)</option>
+                  <option value="es-ES">Español</option>
+                </select>
+              </div>
+
+              <div class="setting-row">
+                <div class="setting-info">
+                  <strong>Enviar automaticamente após ditar</strong>
+                  <span>Envia o texto transcrito assim que você finalizar a fala.</span>
+                </div>
+                <label class="switch">
+                  <input type="checkbox" id="settings-voice-autosend" checked />
+                  <span class="slider"></span>
+                </label>
+              </div>
+            </article>
+
+            <!-- Cartão 4: Conta, Integrações & Segurança .env -->
+            <article class="settings-card" data-settings-section="account">
+              <div class="settings-card-header">
+                <div class="settings-card-title-wrap">
+                  <span class="settings-card-icon" aria-hidden="true">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                      <circle cx="12" cy="7" r="4"/>
+                    </svg>
+                  </span>
+                  <h3>Conta &amp; Segurança (.env)</h3>
+                </div>
+                <span class="settings-badge status-online" id="settings-firebase-badge">Verificando...</span>
+              </div>
+
+              <div class="setting-row">
+                <div class="setting-info">
+                  <strong id="settings-user-name">Carregando usuário...</strong>
+                  <span id="settings-user-email">Aguardando autenticação...</span>
+                </div>
+                <div class="setting-actions-pair">
+                  <button type="button" class="btn-secondary-pill" id="btn-export-markdown">
+                    Exportar .md
+                  </button>
+                  <button type="button" class="btn-secondary-pill" id="btn-export-history">
+                    Exportar JSON
+                  </button>
+                </div>
+              </div>
+
+              <div class="integration-status-grid" id="settings-integration-status"></div>
+
+              <div class="setting-row">
+                <div class="setting-info">
+                  <strong>Redefinir preferências locais</strong>
+                  <span>Restaura cores de fundo, modelo e configurações padrão do painel.</span>
+                </div>
+                <button type="button" class="btn-danger-pill" id="btn-reset-settings">
+                  Restaurar padrão
+                </button>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- =====================================================
+           BARRA PÍLULA CENTRALIZADA / INFERIOR + SELETOR DE MODELO CORRIGIDO
+           ===================================================== -->
+      <footer class="prompt-dock" id="prompt-dock">
+        <div class="prompt-wrapper" id="prompt-wrapper">
+          <div class="floating-popover attach-popover" id="attach-dropdown" hidden role="menu">
+            <button type="button" class="popover-item" id="action-upload-file" role="menuitem">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/>
+              </svg>
+              <span>Enviar arquivos locais</span>
+            </button>
+
+            <button type="button" class="popover-item" data-tool-prefix="Analise este código-fonte ou documento em Markdown detalhado: " role="menuitem">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>
+              </svg>
+              <span>Revisar código</span>
+            </button>
+
+            <button type="button" class="popover-item" id="action-demo-google-chart" role="menuitem">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/>
+              </svg>
+              <span>Gráfico Google Charts (Demo Pizza)</span>
+            </button>
+
+            <div class="popover-divider"></div>
+
+            <button type="button" class="popover-item" data-tool-prefix="Crie uma descrição visual detalhada em Markdown para geração de imagem de: " role="menuitem">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/>
+                <polyline points="21 15 16 10 5 21"/>
+              </svg>
+              <span>Prompt de imagem</span>
+            </button>
+
+            <button type="button" class="popover-item" data-tool-prefix="[Modo Canvas] Estruture em Markdown um projeto completo para: " role="menuitem">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="3" width="18" height="18" rx="2"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/>
+              </svg>
+              <span>Canvas</span>
+            </button>
+
+            <button type="button" class="popover-item has-arrow" id="action-open-scheduled-from-tools" role="menuitem">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+              </svg>
+              <span>Programado</span>
+              <span class="arrow-right">›</span>
+            </button>
+
+            <button type="button" class="popover-item has-arrow" id="action-open-studies-from-tools" role="menuitem">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/>
+              </svg>
+              <span>Modos de estudo</span>
+              <span class="arrow-right">›</span>
+            </button>
+
+            <button type="button" class="popover-item has-arrow" id="action-open-sports-from-tools" role="menuitem">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/><polygon points="12 7 16.5 10.2 14.8 15.5 9.2 15.5 7.5 10.2 12 7"/>
+              </svg>
+              <span>Esportes • VarzIA</span>
+              <span class="arrow-right">›</span>
+            </button>
+
+            <button type="button" class="popover-item has-arrow" id="action-open-agro-from-tools" role="menuitem">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/>
+                <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>
+              </svg>
+              <span>Agro</span>
+              <span class="arrow-right">›</span>
+            </button>
+          </div>
+
+          <!-- Popover Dinâmico do Seletor de Modelos (MODERNIZADO) -->
+          <div class="floating-popover model-popover" id="model-dropdown-menu" hidden role="menu" aria-label="Seletor de modelos de IA">
+
+            <!-- Header compacto do popover -->
+            <div class="model-popover-top">
+              <div class="model-popover-title-row">
+                <div class="model-popover-title-icon-wrap">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                  </svg>
+                  <strong>Modelos de IA</strong>
+                </div>
+                <div class="model-popover-actions">
+                  <span class="model-count-pill" id="model-count-pill">0</span>
+                  <button type="button" class="icon-btn icon-btn-sm model-refresh-btn" id="btn-refresh-models" title="Atualizar catálogo ao vivo" aria-label="Atualizar modelos">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4">
+                      <polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Modelo ativo destacado (card resumido) -->
+              <div class="model-active-preview" id="model-active-preview" aria-live="polite">
+                <span class="model-active-dot" id="model-active-dot-preview" aria-hidden="true"></span>
+                <span class="model-active-name" id="model-active-name-preview">4 Hydrogen</span>
+                <span class="model-active-level-badge" id="model-active-level-preview">Alto</span>
+              </div>
+
+              <input
+                type="search"
+                id="model-search-input"
+                class="model-search-input"
+                placeholder="Buscar modelo (Gemini, GPT, DeepSeek...)"
+                autocomplete="off"
+                aria-label="Buscar modelo"
+              />
+
+              <div class="model-filter-tabs" id="model-provider-filters" role="tablist" aria-label="Filtrar por provedor">
+                <button type="button" class="model-filter-tab active" data-provider-filter="all" role="tab" aria-selected="true">Todos</button>
+                <button type="button" class="model-filter-tab" data-provider-filter="auto" role="tab" aria-selected="false">Auto</button>
+                <button type="button" class="model-filter-tab" data-provider-filter="gemini" role="tab" aria-selected="false">Gemini</button>
+                <button type="button" class="model-filter-tab" data-provider-filter="unorouter" role="tab" aria-selected="false">:free</button>
+              </div>
+            </div>
+
+            <!-- Lista scrollável de modelos -->
+            <div class="model-scroll-area" role="listbox" aria-label="Modelos disponíveis">
+              <div class="model-loading-spinner" id="model-loading-spinner" hidden aria-label="Carregando modelos">
+                <span class="spinner-ring"></span>
+                <span>Atualizando catálogo ao vivo...</span>
+              </div>
+              <div class="model-section-list" id="model-primary-options"></div>
+              <div class="model-dynamic-list" id="dynamic-models-list"></div>
+            </div>
+
+            <div class="popover-divider"></div>
+
+            <!-- Controle de raciocínio -->
+            <div class="reasoning-group">
+              <button type="button" class="popover-item has-arrow reasoning-toggle-btn" id="btn-reasoning-toggle" aria-expanded="false">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><circle cx="12" cy="12" r="10"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+                </svg>
+                <span>Nível de raciocínio</span>
+                <span class="reasoning-current-pill" id="reasoning-badge-label">Alto</span>
+                <span class="arrow-right model-reasoning-chevron">▸</span>
+              </button>
+
+              <div class="reasoning-sublist" id="reasoning-sublist" hidden>
+                <button type="button" class="reasoning-choice" data-reasoning="Auto">Auto</button>
+                <button type="button" class="reasoning-choice" data-reasoning="Baixo">Baixo</button>
+                <button type="button" class="reasoning-choice" data-reasoning="Médio">Médio</button>
+                <button type="button" class="reasoning-choice active" data-reasoning="Alto">Alto ✓</button>
+              </div>
+            </div>
+          </div>
+
+          <form class="prompt-pill" id="prompt-form">
+            <button
+              type="button"
+              class="pill-action-btn attach-toggle-btn"
+              id="btn-attach"
+              title="Adicionar arquivos e ferramentas"
+              aria-label="Adicionar arquivos e ferramentas"
+              aria-expanded="false"
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+              </svg>
+            </button>
+
+            <textarea
+              id="prompt-input"
+              rows="1"
+              placeholder="Peça ao W3Labs WillIAn (respostas em Markdown)"
+              aria-label="Peça ao W3Labs WillIAn"
+            ></textarea>
+
+            <select id="model-selector" hidden aria-hidden="true"></select>
+
+            <div class="pill-right-controls">
+              <button
+                type="button"
+                class="model-trigger-pill"
+                id="btn-model-selector"
+                aria-haspopup="true"
+                aria-expanded="false"
+                title="Selecionar modelo e raciocínio"
+              >
+                <span class="model-provider-dot" id="model-trigger-dot" aria-hidden="true"></span>
+                <span id="model-trigger-name">4 Hydrogen</span>
+                <span class="model-trigger-level" id="model-trigger-level">Alto</span>
+                <svg class="model-chevron" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                  <polyline points="6 9 12 15 18 9"/>
+                </svg>
+              </button>
+
+              <button
+                type="button"
+                class="pill-action-btn mic-btn"
+                id="btn-voice-input"
+                title="Ditar mensagem por voz"
+                aria-label="Ditar mensagem por voz"
+              >
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+                  <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+                  <line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/>
+                </svg>
+              </button>
+
+              <button
+                type="submit"
+                class="pill-send-btn"
+                id="btn-send-prompt"
+                title="Enviar mensagem"
+                aria-label="Enviar mensagem"
+                hidden
+              >
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                  <line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>
+                </svg>
+              </button>
+            </div>
+          </form>
+        </div>
+      </footer>
+    </main>
+  </div>
+
+  <!-- =====================================================
+       MODAL INTERLIGADO DO AGRO (FIRESTORE + OPEN-METEO)
+       ===================================================== -->
+  <div class="agro-modal-backdrop" id="agro-modal-backdrop" hidden>
+    <div class="agro-modal-card" role="dialog" aria-modal="true" aria-labelledby="agro-modal-title">
+      <div class="agro-modal-header">
+        <div>
+          <span class="agro-modal-kicker">Firestore Agro Interligado</span>
+          <h3 id="agro-modal-title">Cadastrar Registro</h3>
+        </div>
+        <button type="button" class="icon-btn" id="btn-close-agro-modal" aria-label="Fechar janela">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+      </div>
+
+      <form id="agro-modal-form" class="agro-modal-form">
+        <div id="agro-modal-fields" class="agro-modal-fields"></div>
+
+        <div class="agro-modal-actions">
+          <button type="button" class="btn-secondary-pill" id="btn-agro-ask-ai">
+            Consultar IA em Markdown
+          </button>
+          <button type="submit" class="btn-primary-notebook" id="btn-agro-save-firestore">
+            Salvar no Firestore
+          </button>
+        </div>
+      </form>
+
+      <div class="agro-modal-records">
+        <div class="agro-modal-records-header">
+          <strong>Registros salvos no Firestore</strong>
+          <span id="agro-modal-records-count">0 itens</span>
+        </div>
+        <div class="agro-modal-records-list" id="agro-modal-records-list"></div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="/JS/dashboard.js"></script>
+</body>
+</html>
